@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management System</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #eef2f7; margin: 0; color: #243247; }
+        .container { max-width: 900px; margin: 45px auto; padding: 28px; background: white; border-radius: 12px; box-shadow: 0 5px 20px #00000012; }
+        h1 { color: #174ea6; margin-top: 0; }
+        form { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 30px; }
+        input, button { padding: 12px; border: 1px solid #ccd5e0; border-radius: 6px; font-size: 15px; }
+        input { flex: 1; min-width: 170px; }
+        button { background: #1769d2; color: white; border: 0; cursor: pointer; }
+        button:hover { background: #0e4fa8; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 13px; text-align: left; border-bottom: 1px solid #e5eaf0; }
+        th { background: #f4f7fb; }
+        .empty { color: #6b7788; padding: 18px 0; }
+        @media (max-width: 600px) { .container { margin: 15px; padding: 18px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Event Management System</h1>
+    <p>Add an event and view all saved events below.</p>
+
+    <h3>Add New Event</h3>
+    <form action="/add" method="POST">
+        <input type="text" name="name" placeholder="Event Name" required>
+        <input type="date" name="date" required>
+        <input type="text" name="venue" placeholder="Event Venue" required>
+        <button type="submit">Add Event</button>
+    </form>
+
+    <h2>Available Events</h2>
+    {% if events %}
+    <table>
+        <thead><tr><th>ID</th><th>Event</th><th>Date</th><th>Venue</th></tr></thead>
+        <tbody>
+        {% for event in events %}
+        <tr>
+            <td>{{ event.id }}</td>
+            <td>{{ event.name }}</td>
+            <td>{{ event.date }}</td>
+            <td>{{ event.venue }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No events added yet. Use the form above to add your first event.</p>
+    {% endif %}
+</div>
+</body>
+</html>
